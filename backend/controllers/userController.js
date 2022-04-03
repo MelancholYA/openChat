@@ -4,25 +4,71 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const deleteUser = asyncHandler(async (req, res) => {
-	const { email, password } = req.body;
-	if (!email || !password) {
+	const { password } = req.body;
+	const userId = req.user;
+	if (!password) {
 		res.status(400);
-		throw new Error('invalid body');
+		throw new Error('Please provide your password');
 	}
-	res.status(200).send('user delted');
+	const user = await User.findById(userId);
+	const isSamePassword = await bcrypt.compare(password, user.password);
+	if (!isSamePassword) {
+		res.status(400);
+		throw new Error('Wrong password');
+	}
+	try {
+		await User.findByIdAndDelete(userId);
+		res.status(201).json();
+	} catch (error) {
+		res.status(500);
+		throw new Error(error);
+	}
 });
 
 const editUser = asyncHandler(async (req, res) => {
-	const { id } = req.params;
-	if (!id) {
+	const userId = req.user;
+	const newData = req.body;
+	console.log(newData);
+	if (newData.password) {
 		res.status(400);
-		throw new Error('No id provided');
+		throw new Error('You can not change the password this way');
 	}
-	res.status(200).send('user edited');
+	delete newData.password;
+	if (!newData || JSON.stringify(newData) === '{}') {
+		res.status(400);
+		throw new Error('No data was provided');
+	}
+	try {
+		await User.findOneAndUpdate({ id: userId }, { ...newData });
+		res.status(201).json();
+	} catch (error) {
+		res.status(400);
+		throw new Error(error);
+	}
 });
 
-const editUserPasword = asyncHandler(async (req, res) => {
-	res.status(200).send('user password edited');
+const editUserPassword = asyncHandler(async (req, res) => {
+	const userId = req.user;
+	const { currPassword, newPassword } = req.body;
+	if (!currPassword || !newPassword) {
+		res.status(400);
+		throw new Error('Please fill all the fields');
+	}
+	const user = await User.findById(userId);
+	const isSamePassword = await bcrypt.compare(currPassword, user.password);
+	if (!isSamePassword) {
+		res.status(400);
+		throw new Error('Wrong password');
+	}
+	const salt = await bcrypt.genSalt(7);
+	const hashed = await bcrypt.hash(newPassword, salt);
+	try {
+		await User.findByIdAndUpdate(userId, { password: hashed });
+		res.status(201).json();
+	} catch (error) {
+		res.status(400);
+		throw new Error(error);
+	}
 });
 
 const addUser = asyncHandler(async (req, res) => {
@@ -81,8 +127,9 @@ const logUser = asyncHandler(async (req, res) => {
 			{ id: user._id, email: user.email },
 			process.env.JWT_SECRET,
 		);
+
 		res.status(200).json({ token });
 	}
 });
 
-module.exports = { deleteUser, editUser, editUserPasword, addUser };
+module.exports = { deleteUser, editUser, editUserPassword, logUser, addUser };

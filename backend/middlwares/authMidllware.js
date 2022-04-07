@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const asyncHandler = require('express-async-handler');
 
 const protect = (req, res, next) => {
 	let token = req.headers['x-auth-token'];

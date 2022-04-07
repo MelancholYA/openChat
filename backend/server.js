@@ -3,6 +3,7 @@ const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 5005;
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
+const chatRoute = require('./routes/chat');
 const { errorHandler } = require('./middlwares/errorMiddlware');
 const connectDB = require('./config/db');
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
 app.use('/user', userRoute);
+app.use('/chat', chatRoute);
 
 app.use(errorHandler);
 

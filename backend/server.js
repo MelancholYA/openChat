@@ -1,13 +1,24 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
-const PORT = process.env.PORT || 5005;
+const { createServer } = require('http');
+const { Server } = require('socket.io');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
 const chatRoute = require('./routes/chat');
-const { errorHandler } = require('./middlwares/errorMiddlware');
 const connectDB = require('./config/db');
+const { errorHandler } = require('./middlwares/errorMiddlware');
+const { udpateUserSocketId } = require('./controllers/socketControllers');
+const { protectSocket } = require('./middlwares/socketMidllware');
+const PORT = process.env.PORT || 8000;
+
 const app = express();
-const expressWs = require('express-ws')(app);
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+	cors: {
+		origin: ['http://localhost:3000'],
+	},
+});
+io.use(protectSocket);
 
 connectDB();
 
@@ -18,20 +29,16 @@ app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
 app.use('/api/chat', chatRoute);
 
-// app.ws('/ws', function (wsi, req) {
-// 	wsi.on('connection', () => console.log('connected'));
-// 	wsi.on('message', function (msg) {
-// 		wsi.send('expressWs.getWss().clients');
-// 		console.log(expressWs.getWss().clients);
-// 	});
-// });
-expressWs.app.ws('/ws', (ws, req) => {
-	ws.on('message', function (msg) {
-		ws.send('expressWs.getWss().clients');
-		console.log(typeof expressWs.getWss().clients);
+io.on('connection', async (socket) => {
+	const users = (await io.fetchSockets()).map((socket) => {
+		return { sokcetId: socket.id, userId: socket.user };
 	});
+
+	console.log('socket connected');
+	socket.emit('onlineUsers', users);
+	socket.on('disconnect', (e) => console.log('socket disconnected'));
 });
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log('server started on port ' + PORT));
+httpServer.listen(PORT, () => console.log('server started on port ' + PORT));

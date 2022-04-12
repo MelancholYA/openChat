@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { io } from 'socket.io-client';
+import { useEffect } from 'react';
+import Auth from './pages/Auth';
+import { CssBaseline } from '@mui/material';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<CssBaseline />
+			<Routes>
+				<Route path='/' element={<Auth />} />
+			</Routes>
+		</Router>
+	);
+	// const socket = io('ws://localhost:8000/', { autoConnect: false });
+
+	// useEffect(() => {
+	// 	socket.auth = {
+	// 		token:
+	// 			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNGYxYzA1OThiODlmMzAxNzlkOTIyOSIsImVtYWlsIjoidXNlckB0ZXN0LmNvbSIsImlhdCI6MTY0OTc3NDQwNH0.x9_5zJ06xvha1H6Yb8cJF53xyLaz9IhJRNWvMa2yevM',
+	// 	};
+	// 	socket.connect();
+	// }, []);
+
+	// socket.on('connect', () => {
+	// 	console.log('user connected');
+	// });
+	// socket.on('onlineUsers', (users) => console.log({ users: users }));
+	// socket.on('disconnect', (reason) => {
+	// 	console.log('disconnect', reason);
+	// });
+	// socket.on('connect_error', (e) => {
+	// 	console.log(e.message);
+	// });
+	// return <div className='App'></div>;
 }
 
 export default App;

@@ -19,6 +19,7 @@ const userSchema = mongoose.Schema(
 			type: String,
 			require: true,
 		},
+		picture: String,
 		friends: [
 			{
 				type: mongoose.Types.ObjectId,

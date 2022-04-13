@@ -18,7 +18,7 @@ const io = new Server(httpServer, {
 		origin: ['http://localhost:3000'],
 	},
 });
-io.use(protectSocket);
+// io.use(protectSocket);
 
 connectDB();
 
@@ -30,12 +30,16 @@ app.use('/api/user', userRoute);
 app.use('/api/chat', chatRoute);
 
 io.on('connection', async (socket) => {
-	const users = (await io.fetchSockets()).map((socket) => {
-		return { sokcetId: socket.id, userId: socket.user };
-	});
+	//get online users
+	const users = (await io.fetchSockets())
+		.map((socket) => {
+			return { user: socket.id };
+		})
+		.filter((user) => user.user !== socket.id);
 
-	console.log('socket connected');
+	//send online users
 	socket.emit('onlineUsers', users);
+	socket.broadcast.emit('onlineUsers', users);
 	socket.on('disconnect', (e) => console.log('socket disconnected'));
 });
 

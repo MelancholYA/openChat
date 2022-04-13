@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 const Auth = () => {
 	return (
@@ -16,7 +16,7 @@ const Auth = () => {
 				}}
 			/>
 			<Grid item sm={12} md={5}>
-				<h1 style={{ width: 'fit-content' }}>hi</h1>
+				<Typography>Welcome Back !</Typography>
 			</Grid>
 		</Grid>
 	);

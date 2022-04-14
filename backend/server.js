@@ -40,6 +40,12 @@ io.on('connection', async (socket) => {
 	//send online users
 	socket.emit('onlineUsers', users);
 	socket.broadcast.emit('onlineUsers', users);
+
+	//send private mesage
+	socket.on('privateMessage', (data) => {
+		socket.to(data.user).emit('privateMessage', data.message);
+	});
+
 	socket.on('disconnect', (e) => console.log('socket disconnected'));
 });
 

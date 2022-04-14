@@ -1,0 +1,13 @@
+.input {
+	border-left: 2px solid;
+	padding: 5px 12px;
+	margin: 5px 0;
+	&_field {
+		border: 0;
+		padding: 7px 0;
+		background: transparent;
+		border-bottom: 3px solid;
+		width: 100%;
+		outline: 0;
+	}
+}

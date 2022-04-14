@@ -1,0 +1,76 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'popins';
+  src: url("../assets/Poppins-Regular.ttf");
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+li {
+  list-style: none;
+}
+
+body {
+  font-family: 'popins';
+}
+
+.auth {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-image: url("../assets/bg.jpg");
+  background-size: cover;
+}
+
+.auth_side {
+  width: 50%;
+  position: relative;
+  z-index: 0;
+}
+
+.auth_side::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100vh;
+  background-color: #29395691;
+  z-index: 1;
+}
+
+.auth_main {
+  z-index: 1;
+  background-color: #f6fdff;
+  height: 50vh;
+  margin: auto;
+  padding: 12px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 14px #dcdcdc6b;
+          box-shadow: 0 0 14px #dcdcdc6b;
+}
+
+.input {
+  border-left: 2px solid;
+  padding: 5px 12px;
+  margin: 5px 0;
+}
+
+.input_field {
+  border: 0;
+  padding: 7px 0;
+  background: transparent;
+  border-bottom: 3px solid;
+  width: 100%;
+  outline: 0;
+}

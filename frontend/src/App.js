@@ -1,13 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { io } from 'socket.io-client';
-import { useEffect } from 'react';
 import Auth from './pages/Auth';
-import { CssBaseline } from '@mui/material';
 
 function App() {
 	return (
 		<Router>
-			<CssBaseline />
 			<Routes>
 				<Route path='/' element={<Auth />} />
 			</Routes>

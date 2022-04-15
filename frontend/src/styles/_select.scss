@@ -1,0 +1,43 @@
+.select {
+	margin: 15px 0;
+	height: 50px;
+	border: 3px solid white;
+	position: relative;
+	z-index: 1;
+	&_title {
+		height: calc(50px - 3px);
+		cursor: pointer;
+		user-select: none;
+		padding: 15px;
+
+		&_placeholder,
+		&_display {
+			position: absolute;
+			transition: 0.3s;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		.up {
+			top: 0;
+			left: 0;
+			font-size: 14px;
+			background: #000000;
+		}
+	}
+	&_menu {
+		position: absolute;
+		width: 100%;
+		background: black;
+		overflow-y: scroll;
+		height: 0px;
+		transition: 0.3s;
+		&_option {
+			padding: 7px;
+			cursor: pointer;
+		}
+	}
+	.opened {
+		height: 200px;
+	}
+}

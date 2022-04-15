@@ -17,6 +17,7 @@
 		.input_title {
 			top: 0;
 			left: 0;
+			font-size: 14px;
 			background: #000000;
 		}
 	}
@@ -24,6 +25,7 @@
 	.up {
 		top: 0;
 		left: 0;
+		font-size: 14px;
 		background: #000000;
 	}
 	&_field {
@@ -32,6 +34,7 @@
 		outline: 0;
 		padding: 5px;
 		color: white;
+		font-size: 18px;
 		&::placeholder {
 			color: #ffffff00;
 		}

@@ -34,7 +34,6 @@ const Auth = () => {
 						type='text'
 						onChange={(e) => setUserData({ ...userData, email: e })}
 					/>
-
 					<Select
 						options={countries}
 						title='Country'
@@ -43,9 +42,13 @@ const Auth = () => {
 					<Input
 						title='Password'
 						value={userData.password}
-						type='pasword'
-						onChange={(e) => setUserData({ ...userData, email: e })}
+						type='password'
+						onChange={(e) => setUserData({ ...userData, password: e })}
 					/>
+					<p className='auth_main_form_note'>Already have an account ? login</p>
+					<button className='auth_main_form_button' type='submit'>
+						Sign Up
+					</button>
 				</form>
 			</div>
 		</div>

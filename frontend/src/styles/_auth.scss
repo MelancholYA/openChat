@@ -1,31 +1,35 @@
 .auth {
 	height: 100vh;
 	display: flex;
-	background-image: url('../assets/bg.jpg');
+	background-image: url('https://unsplash.com/photos/SRjZtxsK3Os/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mzd8fHNvY2lhbCUyMGJhY2tncm91bmR8ZW58MHwwfHx3aGl0ZXwxNjUwMDY0NTk1&force=true&w=640');
 	background-size: cover;
 	&_side {
 		width: 50%;
 		position: relative;
 		z-index: 0;
-		&::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 200%;
-			height: 100vh;
-			background-color: #29395691;
-			z-index: 1;
-		}
 	}
 	&_main {
 		z-index: 1;
 		background-color: #000000;
-		height: 50vh;
+
+		min-width: 450px;
 		margin: auto;
 		padding: 22px;
 		color: white;
-		//border-radius: 5px;
-		//box-shadow: 0 0 14px #dcdcdc6b;
+
+		&_form {
+			&_note {
+				margin: 10px 0;
+				font-size: 12px;
+			}
+			&_button {
+				background: white;
+				color: black;
+				padding: 12px 20px;
+				border: 0;
+				outline: 0;
+				cursor: pointer;
+			}
+		}
 	}
 }

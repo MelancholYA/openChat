@@ -5,16 +5,21 @@ const Select = ({ title, onSelect, options }) => {
 	const [selected, setSelected] = useState({ name: null, code: null });
 	return (
 		<div className='select'>
-			<p className='select_title'>{title}</p>
-			<p className='select_display' onClick={() => setIsOpen(!isOpen)}>
-				{selected.name ?? 'Please select a country'}
-			</p>
+			<div className='select_title' onClick={() => setIsOpen(!isOpen)}>
+				<p className={`select_title_placeholder ${selected.name ? 'up' : ''}`}>
+					{title}
+				</p>
+				<p className='select_title_display'>{selected.name}</p>
+			</div>
+
 			<ul className={`select_menu ${isOpen ? 'opened' : ''}`}>
 				{options.map((option) => (
 					<li
-						className={`select_option`}
+						key={option.code}
+						className={`select_menu_option`}
 						onClick={() => {
 							onSelect(option.code);
+							setSelected({ name: option.name, code: option.code });
 							setIsOpen(false);
 						}}>
 						{option.name}

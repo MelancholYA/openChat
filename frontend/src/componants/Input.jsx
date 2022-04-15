@@ -3,7 +3,7 @@ import React from 'react';
 const Input = ({ title, placeholder, type, onChange, value }) => {
 	return (
 		<div className='input'>
-			<p className='input_title'>{title}</p>
+			<p className={`input_title ${value ? 'up' : ''}`}>{title}</p>
 			<input
 				className='input_field'
 				type={type}

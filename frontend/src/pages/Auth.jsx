@@ -34,10 +34,17 @@ const Auth = () => {
 						type='text'
 						onChange={(e) => setUserData({ ...userData, email: e })}
 					/>
+
 					<Select
 						options={countries}
 						title='Country'
 						onSelect={(e) => setUserData({ ...userData, country: e })}
+					/>
+					<Input
+						title='Password'
+						value={userData.password}
+						type='pasword'
+						onChange={(e) => setUserData({ ...userData, email: e })}
 					/>
 				</form>
 			</div>

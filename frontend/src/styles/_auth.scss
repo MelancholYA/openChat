@@ -20,11 +20,12 @@
 	}
 	&_main {
 		z-index: 1;
-		background-color: #f6fdff;
+		background-color: #000000;
 		height: 50vh;
 		margin: auto;
-		padding: 12px;
-		border-radius: 5px;
-		box-shadow: 0 0 14px #dcdcdc6b;
+		padding: 22px;
+		color: white;
+		//border-radius: 5px;
+		//box-shadow: 0 0 14px #dcdcdc6b;
 	}
 }

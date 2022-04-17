@@ -30,6 +30,8 @@ body {
   display: flex;
   background-image: url("https://unsplash.com/photos/SRjZtxsK3Os/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mzd8fHNvY2lhbCUyMGJhY2tncm91bmR8ZW58MHwwfHx3aGl0ZXwxNjUwMDY0NTk1&force=true&w=640");
   background-size: cover;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .auth_side {
@@ -47,6 +49,33 @@ body {
   color: white;
 }
 
+.auth_main_title {
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.auth_main_title_bottom {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+}
+
+.auth_main_title_front {
+  -webkit-transform: translateZ(16px);
+          transform: translateZ(16px);
+}
+
+.auth_main .turn {
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);
+}
+
 .auth_main_form_note {
   margin: 10px 0;
   font-size: 12px;
@@ -59,6 +88,18 @@ body {
   border: 0;
   outline: 0;
   cursor: pointer;
+}
+
+.auth_main_error {
+  background: #ffc6c6;
+  margin-top: 30px;
+  padding: 12px;
+  color: #8f0000;
+}
+
+.invert {
+  -webkit-filter: invert(1);
+          filter: invert(1);
 }
 
 .input {

@@ -1,11 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Auth from './pages/Auth';
+import Main from './pages/Main';
 
 function App() {
 	return (
 		<Router>
 			<Routes>
 				<Route path='/' element={<Auth />} />
+				<Route path='/chat' element={<Main />} />
+				<Route path='/*' element={<h1>Not Found</h1>} />
 			</Routes>
 		</Router>
 	);

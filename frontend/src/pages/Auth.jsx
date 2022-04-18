@@ -3,9 +3,12 @@ import Input from '../componants/Input';
 import Select from '../componants/Select';
 import countries from '../assets/countries.json';
 import axios from 'axios';
-import loader from '../assets/loader.svg';
+import Spinner from '../componants/Spinner';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Auth = () => {
+	const token = localStorage.getItem('openchatToken');
+	const navigate = useNavigate();
 	const [userData, setUserData] = useState({
 		name: '',
 		email: '',
@@ -34,7 +37,7 @@ const Auth = () => {
 			.then((res) => {
 				setReqStaus({ state: 0, message: null });
 				localStorage.setItem('openchatToken', res.data.token);
-				console.log(res);
+				navigate('/chat');
 			})
 			.catch((err) => {
 				const errorMessage = err.response
@@ -44,6 +47,10 @@ const Auth = () => {
 				setReqStaus({ state: 2, message: errorMessage });
 			});
 	};
+
+	if (token) {
+		return <Navigate replace to='/chat' />;
+	}
 	return (
 		<div className={`auth`}>
 			<div className='auth_side'></div>
@@ -98,7 +105,7 @@ const Auth = () => {
 						className='auth_main_form_button'
 						type='submit'>
 						{reqStatus.state === 1 ? (
-							<img height={20} src={loader} alt='spinner' />
+							<Spinner height={20} />
 						) : !isLogin ? (
 							'Register'
 						) : (

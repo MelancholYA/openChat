@@ -5,7 +5,9 @@ const User = require('../models/usersModel');
 
 const getChats = asyncHandler(async (req, res) => {
 	try {
-		let chats = await Chat.find({ users: req.user }).select('name , updatedAt');
+		let chats = await Chat.find({ users: req.user }).select(
+			'name , updatedAt , latestMessage',
+		);
 		res.json(chats);
 	} catch (error) {
 		res.status(500);
@@ -38,6 +40,7 @@ const newChat = asyncHandler(async (req, res) => {
 					user: req.user,
 				},
 			],
+			latestMessage: message,
 		});
 		res.status(201).json();
 	} catch (error) {
@@ -64,6 +67,7 @@ const addToChat = asyncHandler(async (req, res) => {
 					user: req.user,
 				},
 			},
+			latestMessage: newMessage,
 		});
 		if (chat) {
 			res.status(200).json();

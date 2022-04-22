@@ -1,4 +1,5 @@
 import { Navigate } from 'react-router-dom';
+import Sider from '../componants/sider';
 
 const Main = () => {
 	const token = localStorage.getItem('openchatToken');
@@ -7,7 +8,11 @@ const Main = () => {
 		return <Navigate replace to='/' />;
 	}
 
-	return <div>Main</div>;
+	return (
+		<div className='Main'>
+			<Sider />
+		</div>
+	);
 };
 
 export default Main;

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Input from '../componants/Input';
-import Select from '../componants/Select';
+import Input from '../componants/shared/Input';
+import Select from '../componants/shared/Select';
 import countries from '../assets/countries.json';
 import axios from 'axios';
-import Spinner from '../componants/Spinner';
+import Spinner from '../componants/shared/Spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const Auth = () => {
@@ -51,6 +51,7 @@ const Auth = () => {
 	if (token) {
 		return <Navigate replace to='/chat' />;
 	}
+
 	return (
 		<div className={`auth`}>
 			<div className='auth_side'></div>

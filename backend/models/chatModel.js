@@ -20,6 +20,7 @@ const chatSchema = mongoose.Schema(
 					},
 				},
 			],
+			latestMessage: String,
 		},
 	],
 	{ timestamps: true },

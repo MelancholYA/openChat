@@ -1,0 +1,79 @@
+.sider {
+	background: $blue;
+	width: 30%;
+	max-width: 300px;
+	height: 100vh;
+	box-shadow: 3px 0 14px gainsboro;
+	padding: 20px;
+	&_header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		img {
+			height: 40px;
+		}
+		svg {
+			background: #ffffff82;
+			padding: 7px;
+			border-radius: 100vw;
+			cursor: pointer;
+		}
+	}
+	&_container {
+		background: #ffffff38;
+		color: white;
+		padding: 12px;
+		height: 48px;
+		margin: 20px 0;
+		transition: 0.3s;
+		overflow: hidden;
+		&_header {
+			user-select: none;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			svg {
+				cursor: pointer;
+				transform: rotate(180deg);
+				transition: 0.3s;
+			}
+			.rolled {
+				transform: rotate(0deg);
+			}
+		}
+		&_search {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background: white;
+			padding: 5px;
+			margin: 15px 0;
+			input {
+				width: 100%;
+				border: 0;
+				padding: 5px;
+				outline: 0;
+			}
+		}
+		&_spinner {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 60%;
+			svg {
+				fill: rgba(255, 255, 255, 0.692);
+			}
+		}
+		&_error {
+			background: #fdd2d2;
+			color: #7e0101;
+			font-size: 12px;
+			padding: 10px;
+			text-align: center;
+		}
+	}
+	.expended {
+		height: 40%;
+	}
+}

@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/usersModel');
 
-const protectSocket = (socket, next) => {
+const protectSocket = async (socket, next) => {
 	const token = socket.handshake.auth.token;
 	if (token) {
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
-			const user = User.findById(decoded.id).select('name id picture friends');
+			const user = await User.findById(decoded.id).select(
+				'name id picture friends',
+			);
 			socket.user = user;
 			next();
 		} catch (error) {

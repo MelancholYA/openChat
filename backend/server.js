@@ -10,6 +10,7 @@ const connectDB = require('./config/db');
 const { errorHandler } = require('./middlwares/errorMiddlware');
 const { udpateUserSocketId } = require('./controllers/socketControllers');
 const { protectSocket } = require('./middlwares/socketMidllware');
+const Chat = require('./models/chatModel');
 const PORT = process.env.PORT || 8000;
 
 const app = express();
@@ -19,7 +20,7 @@ const io = new Server(httpServer, {
 		origin: ['http://localhost:3000'],
 	},
 });
-// io.use(protectSocket);
+io.use(protectSocket);
 
 connectDB();
 
@@ -39,9 +40,17 @@ io.on('connection', async (socket) => {
 		})
 		.filter((user) => user.user !== socket.id);
 
+	const chats = await Chat.find({ users: socket.user._id }).select(
+		'name , updatedAt , latestMessage',
+	);
+
 	//send online users
 	socket.emit('onlineUsers', users);
 	socket.broadcast.emit('onlineUsers', users);
+
+	//send online users
+	socket.emit('recentChats', chats);
+	socket.broadcast.emit('recentChats', chats);
 
 	//send private mesage
 	socket.on('privateMessage', (data) => {

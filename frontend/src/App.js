@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Auth from './pages/Auth';
 import Main from './pages/Main';
+import io from './utils/Socket';
 
 function App() {
+	useEffect(() => {
+		io.connect();
+		io.on('connect', (socket) => {
+			console.log('connected id: ' + io.id);
+		});
+	}, []);
 	return (
 		<Router>
 			<Routes>

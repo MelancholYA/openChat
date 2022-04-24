@@ -33,6 +33,7 @@ app.use('/api/user', userRoute);
 app.use('/api/chat', chatRoute);
 
 io.on('connection', async (socket) => {
+	console.log('user connected id:' + socket.id);
 	//get online users
 	const users = (await io.fetchSockets())
 		.map((socket) => {
@@ -45,19 +46,18 @@ io.on('connection', async (socket) => {
 	);
 
 	//send online users
-	socket.emit('onlineUsers', users);
-	socket.broadcast.emit('onlineUsers', users);
 
-	//send online users
+	io.emit('onlineUsers', users);
+
+	//send recent messages
 	socket.emit('recentChats', chats);
-	socket.broadcast.emit('recentChats', chats);
 
 	//send private mesage
 	socket.on('privateMessage', (data) => {
 		socket.to(data.user).emit('privateMessage', data.message);
 	});
 
-	socket.on('disconnect', (e) => console.log('socket disconnected'));
+	socket.on('disconnect', (err) => console.log('user disconected'));
 });
 
 app.use(errorHandler);

@@ -46,7 +46,6 @@ io.on('connection', async (socket) => {
 	);
 
 	//send online users
-
 	io.emit('onlineUsers', users);
 
 	//send recent messages

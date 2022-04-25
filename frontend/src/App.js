@@ -1,16 +1,28 @@
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { context } from './context/snackbarContect';
 import Auth from './pages/Auth';
 import Main from './pages/Main';
-import io from './utils/Socket';
+import socket from './utils/Socket';
 
 function App() {
+	const { snackbar } = useContext(context);
+	const [counter, setCounter] = useState(10);
+
 	useEffect(() => {
-		io.connect();
-		io.on('connect', (socket) => {
-			console.log('connected id: ' + io.id);
+		socket.connect();
+		socket.on('connect', () => {
+			console.log('connected id: ' + socket.id);
+		});
+		socket.on('connect_error', (err) => {
+			snackbar({
+				isShown: true,
+				type: 'error',
+				message: "couldn't connect to the server , retrying in 10s",
+			});
 		});
 	}, []);
+
 	return (
 		<Router>
 			<Routes>
@@ -20,27 +32,6 @@ function App() {
 			</Routes>
 		</Router>
 	);
-	// const socket = io('ws://localhost:8000/', { autoConnect: false });
-
-	// useEffect(() => {
-	// 	socket.auth = {
-	// 		token:
-	// 			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNGYxYzA1OThiODlmMzAxNzlkOTIyOSIsImVtYWlsIjoidXNlckB0ZXN0LmNvbSIsImlhdCI6MTY0OTc3NDQwNH0.x9_5zJ06xvha1H6Yb8cJF53xyLaz9IhJRNWvMa2yevM',
-	// 	};
-	// 	socket.connect();
-	// }, []);
-
-	// socket.on('connect', () => {
-	// 	console.log('user connected');
-	// });
-	// socket.on('onlineUsers', (users) => console.log({ users: users }));
-	// socket.on('disconnect', (reason) => {
-	// 	console.log('disconnect', reason);
-	// });
-	// socket.on('connect_error', (e) => {
-	// 	console.log(e.message);
-	// });
-	// return <div className='App'></div>;
 }
 
 export default App;

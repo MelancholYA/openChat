@@ -1,0 +1,59 @@
+.snackbar {
+	position: absolute;
+	bottom: 15px;
+	left: -150px;
+	background: black;
+	min-width: 250px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px;
+	box-shadow: 0 0 14px #dcdcdc5c;
+	color: white;
+	transition: 0.3s;
+	animation: slide 0.3s forwards;
+	&_button {
+		height: 15px;
+		width: 15px;
+		background: transparent;
+		border: 0;
+		margin: 0;
+		position: relative;
+		margin-left: 10px;
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 3px;
+			width: 15px;
+			background: rgb(0, 0, 0);
+			transform-origin: center;
+			transform: translate(-50%, -50%) rotate(45deg);
+			border-radius: 100vw;
+		}
+		&::after {
+			transform: translate(-50%, -50%) rotate(-45deg);
+		}
+	}
+}
+.error {
+	background: #ffbdbd;
+	color: #4e0000;
+	font-weight: 800;
+}
+.success {
+	background: #bdffe0;
+	color: #004e47;
+}
+.alert {
+	background: #fff3cd;
+	color: #856404;
+}
+
+@keyframes slide {
+	to {
+		left: 15px;
+	}
+}

@@ -5,6 +5,7 @@ const socket = io('ws://localhost:8000', {
 		token: localStorage.getItem('openchatToken'),
 	},
 	autoConnect: false,
+	reconnectionDelayMax: 10000,
 });
 
 export default socket;

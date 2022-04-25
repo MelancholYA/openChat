@@ -56,6 +56,15 @@
 				outline: 0;
 			}
 		}
+		&_message {
+			display: flex;
+			align-items: self-start;
+			justify-content: space-between;
+			background: #0230479e;
+			padding: 5px;
+			box-shadow: 0 0 14px #7e7e7e47;
+			cursor: pointer;
+		}
 		&_spinner {
 			display: flex;
 			justify-content: center;

@@ -7,7 +7,6 @@ import socket from './utils/Socket';
 
 function App() {
 	const { snackbar } = useContext(context);
-	const [counter, setCounter] = useState(10);
 
 	useEffect(() => {
 		socket.connect();
@@ -15,10 +14,12 @@ function App() {
 			console.log('connected id: ' + socket.id);
 		});
 		socket.on('connect_error', (err) => {
+			console.log(err);
 			snackbar({
 				isShown: true,
 				type: 'error',
-				message: "couldn't connect to the server , retrying in 10s",
+				message: 'something went wrong with our server , reconnecting...',
+				duration: 10,
 			});
 		});
 	}, []);

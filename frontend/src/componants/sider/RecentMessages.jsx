@@ -1,17 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { context } from '../../context/snackbarContect';
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import io from '../../utils/Socket';
+import Spinner from '../shared/Spinner';
 import Search from './Search';
 
 const RecentMessages = () => {
 	const [isExpended, setIsExpended] = useState(false);
 	const [messages, setMessages] = useState(null);
-	const { snackbar } = useContext(context);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		io.connect();
-		io.on('recentChats', (data) => console.log(data));
-		io.on('onlineUsers', (data) => console.log(data));
+		setLoading(true);
+		io.on('recentChats', (data) => {
+			setLoading(false);
+			setMessages(data);
+		});
 		return () => io.disconnect();
 	}, []);
 
@@ -23,7 +26,6 @@ const RecentMessages = () => {
 					className={isExpended ? 'rolled' : ''}
 					onClick={() => {
 						setIsExpended(!isExpended);
-						snackbar({ isShown: !isExpended, message: 'hi', type: 'alert' });
 					}}
 					xmlns='http://www.w3.org/2000/svg'
 					width='15'
@@ -33,21 +35,26 @@ const RecentMessages = () => {
 				</svg>
 			</div>
 			<Search placeholder='Search Messages' />
-			{/* {req.loading && (
-					<div className='sider_container_spinner'>
-						<Spinner height='50px' />
-					</div>
-				)}
-				{req.error && (
-					<div className='sider_container_error'>
-						<h4>{req.error}</h4>
-					</div>
-				)}
-				 */}
+			{loading && (
+				<div className='sider_container_spinner'>
+					<Spinner height='50px' />
+				</div>
+			)}
 			{messages &&
+				!loading &&
 				messages.map((message) => (
 					<div className='sider_container_message' key={message._id}>
-						<h1>{message.latestMessage}</h1>
+						<div className='sider_container_message_details'>
+							<h5 className='sider_container_message_details_body'>
+								{message.latestMessage}
+							</h5>
+							<h6 className='sider_container_message_details_sender'>
+								{message.name}
+							</h6>
+						</div>
+						<h6 className='sider_container_message_date'>
+							{moment(message.updatedAt).format('DD|MM|YYYY')}
+						</h6>
 					</div>
 				))}
 		</div>

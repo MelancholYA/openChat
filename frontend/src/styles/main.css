@@ -311,6 +311,23 @@ body {
   outline: 0;
 }
 
+.sider_container_message {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: self-start;
+      -ms-flex-align: self-start;
+          align-items: self-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #0230479e;
+  padding: 5px;
+  -webkit-box-shadow: 0 0 14px #7e7e7e47;
+          box-shadow: 0 0 14px #7e7e7e47;
+  cursor: pointer;
+}
+
 .sider_container_spinner {
   display: -webkit-box;
   display: -ms-flexbox;
